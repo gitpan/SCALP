@@ -1,0 +1,11 @@
+Revision history for SCALP
+
+0.0.1   12/01/2007
+        This verison wasn't really released to anyone.
+	It was only packaged as a backup before starting to play with @ISA.
+0.0.2	13/01/2007
+	Packaged as a module and documentation has begun.
+	Even more moduler than before.
+	Main core (SCALP.pm) and 3 more modules (Plain.pm, Menu.pm and News.pm) ready to be used as well thanks to @ISA.
+	Does not use Exporter yet, in order to keep namespace clean and code minimal.
+
