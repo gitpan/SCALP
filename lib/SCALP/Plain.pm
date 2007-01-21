@@ -5,15 +5,15 @@ use strict;
 use Carp;
 use base qw( SCALP );
 
-our $VERSION = '0.01';
+our $VERSION = '0.0.3';
 
-sub text {
+sub content {
 	my $self = shift;
 	if (@_) {
 		my $text = shift;
-		$self->{'text'} = $text;
+		$self->{'content'} = $text;
 	}
-	return $self->{'text'};
+	return $self->{'content'};
 }
 
 1;
@@ -26,7 +26,7 @@ SCALP::Plain - A _very_ plain content page of SCALP
 
 =head1 VERSION
 
-Version 0.0.2
+Version 0.0.3
 
 =cut
 
@@ -40,26 +40,24 @@ This module provides the simplest content page.
 
 or
 
-    my $about = SCALP::Plain->new( title => "About" );
+    $about = SCALP::Plain->new( title => "About" );
 
 (that way, the page even has a title - built in function by SCALP main module)
 
 And using it
 
-    $about->text("Welcome to the About page. Nothing about us is interesting.");
-    print $print->{'text'}
+    $about->content("Welcome to the About page. Nothing about us is interesting.");
+    print $about->content
 
 Of course, this may seem trivial to you (and it just may be), but once you wrap a few pages inside the SCALP main module as a complete website and store it, it's easier to use it in a page rendering engine. At least for me :)
 
-=head1 EXPORT
-
-Nothing is exported.
-
 =head1 FUNCTIONS
 
-=head2 text
+=head2 content
 
-returns the page content or sets it.
+Set the content of the page.
+
+Returns the content of the page.
 
 =cut
 

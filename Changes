@@ -8,4 +8,11 @@ Revision history for SCALP
 	Even more moduler than before.
 	Main core (SCALP.pm) and 3 more modules (Plain.pm, Menu.pm and News.pm) ready to be used as well thanks to @ISA.
 	Does not use Exporter yet, in order to keep namespace clean and code minimal.
-
+0.0.3	21/01/2007
+	Fixed the inheritance fuck up.
+	Fixed get_last_entry and put it in SCALP.
+	Added functions "title", "content" in SCALP::Menu.
+	Fixed documentation for SCALP::News.
+	Improved documentation for SCALP::Main and SCALP::Plain
+	Fixed ambiguious names in different SCALP components.
+	Added Todo file to the dist, to update on the current todos

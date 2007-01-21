@@ -3,8 +3,9 @@ package SCALP;
 use warnings;
 use strict;
 use Carp;
+#TODO: add sub get_page($name)
 
-our $VERSION = '0.0.2';
+our $VERSION = '0.0.3';
 
 ## GENERAL VARIABLES
 sub title {
@@ -44,7 +45,7 @@ sub get_last_entry {
 	my $lastid = 0;
 	map {
 		my $currentid = $_->{'id'};
-		return if !defined($currentid);
+		return $lastid if !defined($currentid);
 		if ($lastid < $currentid) { $lastid = $currentid; }
 		$lastid++;
 	} @{$self->{'entries'}};
@@ -62,25 +63,6 @@ sub new {
                 $self->{$_} = $params{$_};
         } keys (%params);
         return $self;
-}
-
-## OVERALL DEBUGGING
-sub print_recursive {
-	my $self = shift;
-	sub print_var {
-		map {
-			my $param = $_;
-			if (my $type = ref($param)) {
-				print_var(@{$param}) if $type eq "ARRAY";
-				if ($type eq "HASH") {
-					#foreach my $key (keys %{$param}) { print "\t$key => ".$param->{$key}."\n"; }
-					map { print "\t$_ {\n"; print_var($param->{$_}); print "\t}\n"; } sort keys %{$param};
-				}
-			}
-			else { print "\t\t$_\n"; }
-		} @_;
-	}
-	map { print "$_ {\n"; print_var($self->{$_}); print "}\n"; } sort keys %{$self};
 }
 
 1;
@@ -104,13 +86,19 @@ This module provides PERL programmers the ability to write a CMS with greater ea
 
 This is the way I use the module:
 1. I create a skeleton of how a page is built (or "design", if you will) in HTML.
+
 2. I replace the location of menus and content with tags (<#mainmenu#>, <#leftcontent#>) and so on.
+
 3. I write a small web interface (or CLI, depends who maintains it - but web seems the easiest, no?) that allows me to store in a file (conf or using store()) the way the content merges with the HTML design.
 For example: preentry = "<ul>" <-- that way I know the menu entries have <ul> before them.
 After I've entered all the design preferences in the web interface and stored it using store() or a conf file, I write the engine.
+
 4. The engine reads the conf and uses SCALP in order to save the data of the pages and preferences of each page and of the whole site.
+
 5. I use SCALP's functions in order to create new pages or new entries in the content system and so on.
+
 6. The engine I write replaces the tags with the values of the SCALP objects.
+
 
 * Using SCALP makes the engine writing easier, more general and thus, more dynamic and suitable for different situations. Also, it enables me to have different types of pages and different behaviors upon each page.
 * Using a conf file (or a stored file) allows me to adjust the designing, thus making the design replaceable. If I want to change the design, it will only take me a few minutes to adjust the configuration and the way the page is printed (the engine's job) 
@@ -130,14 +118,14 @@ Nothing is exporter so far. Hopefully nothing will ever be.
 
 =head2 new
 
-Creates a new SCALP object, probably a page of some sort.
+Creates a new SCALP object, usually a webpage.
 It returns a reference to a hash that hold whichever values you give to it upon creation.
 
 =cut
 
 =head2 title
 
-Sets a title to the SCALP object. Should be used as a page title.
+Sets a title to the SCALP object. Should be used as a webpage title.
 
 =cut
 

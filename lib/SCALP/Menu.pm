@@ -5,13 +5,13 @@ use strict;
 use Carp;
 use base qw( SCALP );
 
-our $VERSION = '0.0.2';
+our $VERSION = '0.0.3';
 
 sub new {
 	# creates a new menu object
 	# accepts any parameters that fit
 	# TODO: add checks of the parameters we accept
-	my $self = { headlines => [ {} ] };
+	my $self = { entries => [ {} ] };
 	bless $self, shift;
 	my %params = @_;
 	map {
@@ -49,7 +49,7 @@ sub add_entry {
 	# 3. fill the entry with the parameters entered for the function
 	my $self = shift;
 	my %details = @_;
-	my $next_entry = &get_last_entry($self);
+	my $next_entry = $self->get_last_entry;
 	return if !defined($next_entry);
 	push (@{$self->{'entries'}}, { id => $next_entry });
 	map {
@@ -69,7 +69,7 @@ SCALP::Menu - The default Menu module that comes with SCALP
 
 =head1 VERSION
 
-Version 0.0.2
+Version 0.0.3
 
 =cut
 
@@ -82,13 +82,47 @@ This module provides simple menu capabilities.
     my $menu = SCALP::Menu->new();
     ...
 
-=head1 EXPORT
-
-Nothing exported.
-
 =head1 FUNCTIONS
 
 =head2 new
+
+Creates an object of SCALP::Menu.
+
+Can accept any argument given and adds it.
+
+Any Menu type page has an array of entries, and they are composed of "headline" and "href".
+
+Each headline has its own href and SCALP::Menu allows you to access them easily.
+
+=cut
+
+=head2 add_entry
+
+Adds a new menu entry (refered to as 'entries') :
+
+    $menu->add_entry( headline => 'About us', href => 'about.html' );
+
+(I understand the parody in using a script to create a link to a static html file :)
+
+or you could also use the ID concept available in SCALP:
+
+    my $id = $menu->add_entry;
+
+=cut
+
+=head2 headline
+
+Sets up a headline for an entry:
+
+    $id->headline('About us');
+
+=cut
+
+=head2 href
+
+Sets up an href for an entry:
+
+    $id->href('renderer.pl?page=about.html');
 
 =cut
 
